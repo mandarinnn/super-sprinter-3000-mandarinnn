@@ -35,7 +35,7 @@ def create_story():
             business_value=request.form['business_value'],
             estimation=request.form['estimation'],
             status=status)
-
+        return redirect(url_for('list_stories'))
     statuses = Status.select()
     return render_template('form.html', statuses=statuses, story=[])
 
