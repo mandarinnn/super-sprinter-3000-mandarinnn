@@ -1,0 +1,63 @@
+<!DOCTYPE=html>
+<html>
+
+<head>
+    <title>Super Sprinter 3000</title>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        
+        th,
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>User Story Manager</h1>
+    <form action={{ url_for( 'create_story') }}>
+        <input type="submit" value="Add a new User Story">
+    </form>
+
+    <table style="width:100%">
+        <tr>
+            <th>ID</th>
+            <th>Story Title</th>
+            <th>User Story</th>
+            <th>Acceptance Criteria</th>
+            <th>Business Value</th>
+            <th>Estimation</th>
+            <th>Status</th>
+        </tr>
+
+        {% for story in stories %}
+        <tr>
+            <td>{{story.id}}</td>
+            <td>{{story.title}}</td>
+            <td>{{story.story}}</td>
+            <td>{{story.criteria}}</td>
+            <td>{{story.business_value}}</td>
+            <td>{{story.estimation}}</td>
+            <td>{{story.status.name}}</td>
+            <td>
+                <form action="{{ url_for('list_stories')}}" method="POST">
+                    <input type="hidden" name="story_id" value="{{story.id}}" />
+                    <input type="submit" value="Delete &#128465" />
+                </form>
+                <form action="{{ url_for('update_stories', story_id=story.id)}}" method="GET">
+                    <!--<input type="hidden" name="story_id" value="{{story.id}}" />-->
+                    <input type="submit" value="Update &#9998;" />
+                </form>
+            </td>
+
+        </tr>
+        {% endfor %}
+    </table>
+</body>
